@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+</head>
+<body>
+  <h1>Chat Rooms</h1>
+
+  <button onclick="createRoom()">Create Room</button>
+
+  <h3>Join Room</h3>
+  <input id="roomCode" placeholder="Room code" />
+  <input id="username" placeholder="Username" />
+  <button onclick="joinRoom()">Join</button>
+
+  <script>
+    async function createRoom() {
+      const res = await fetch("/create-room");
+      const data = await res.json();
+      alert("Room Code: " + data.roomCode);
+    }
+
+    function joinRoom() {
+      const code = document.getElementById("roomCode").value;
+      const user = document.getElementById("username").value;
+
+      if (!code || !user) {
+        alert("Fill everything");
+        return;
+      }
+
+      window.location.href = `/chat.html?room=${code}&user=${user}`;
+    }
+  </script>
+</body>
+</html>
